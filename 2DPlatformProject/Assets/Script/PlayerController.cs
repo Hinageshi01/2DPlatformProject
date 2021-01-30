@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public Collider2D collider2d;
     public LayerMask ground;
+    public int cherryCount = 0;
 
     void Start()
     {
@@ -49,6 +50,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
             animator.SetBool("Idling", true);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.tag == "Collection") {
+            Destroy(collision.gameObject);
+            cherryCount++;
         }
     }
 }
