@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Falling", true);
         }
         if (collider2d.IsTouchingLayers(ground)) {//触地
+            animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
             animator.SetBool("Idling", true);
         }
