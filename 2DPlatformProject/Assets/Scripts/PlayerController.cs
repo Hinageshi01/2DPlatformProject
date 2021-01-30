@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody2D body;
+    private Rigidbody2D body;
+    private Animator animator;
+
     public float speed;
     public float jumpForce;
-    public Animator animator;
     public Collider2D collider2d;
     public LayerMask ground;
 
     void Start()
     {
-        
+        body = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -23,26 +25,27 @@ public class PlayerController : MonoBehaviour
     }
 
     void Movement() {
-        float horizontalMove = Input.GetAxis("Horizontal");
-        float faceDirection = Input.GetAxisRaw("Horizontal");
-        animator.SetFloat("Running", Mathf.Abs(horizontalMove));
+        float horizontalMove = Input.GetAxis("Horizontal");//-1f -> 1f
+        float faceDirection = Input.GetAxisRaw("Horizontal");//-1, 0, 1
+        animator.SetFloat("Running", Mathf.Abs(horizontalMove));//0f -> 1f
         body.velocity = new Vector2(horizontalMove * speed, body.velocity.y);//移动
         if (faceDirection != 0) {
             transform.localScale = new Vector3(faceDirection, 1, 1);//转身
         }
         if (Input.GetButtonDown("Jump")) {
             body.velocity = new Vector2(body.velocity.x, jumpForce);//跳跃
-            animator.SetBool("Jumping", true);
         }
     }
     void AnimationSwitch() {
-        if (animator.GetBool("Jumping")) {
-            if (body.velocity.y <= 0) {
-                animator.SetBool("Jumping", false);
-                animator.SetBool("Falling", true);
-            }
+        if (body.velocity.y > 0) {//上升
+            animator.SetBool("Jumping", true);
+            animator.SetBool("Falling", false);
         }
-        else if (collider2d.IsTouchingLayers(ground)){
+        if (body.velocity.y < 0) {//下降
+            animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", true);
+        }
+        if (collider2d.IsTouchingLayers(ground)) {//触地
             animator.SetBool("Falling", false);
             animator.SetBool("Idling", true);
         }
