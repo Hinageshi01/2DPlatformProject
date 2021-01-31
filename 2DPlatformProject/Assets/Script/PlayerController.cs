@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
     public float jumpForce;
-    public Collider2D collider2d;
+    public Collider2D playerCollider;
     public LayerMask ground;
-    public int cherryCount = 0;
+    public int cherry = 0;
+    public Text cherryCount;
 
     void Start()
     {
@@ -46,7 +48,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", true);
         }
-        if (collider2d.IsTouchingLayers(ground)) {//触地
+        if (playerCollider.IsTouchingLayers(ground)) {//触地
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
             animator.SetBool("Idling", true);
@@ -55,7 +57,8 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Collection") {
             Destroy(collision.gameObject);
-            cherryCount++;
+            cherry++;
+            cherryCount.text = cherry.ToString();
         }
     }
 }

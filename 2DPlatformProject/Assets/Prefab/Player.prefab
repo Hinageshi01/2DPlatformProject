@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 3594568360035789373}
   - component: {fileID: 3594568360035789346}
   - component: {fileID: 3594568360035789375}
-  - component: {fileID: 3594568360035789372}
-  - component: {fileID: 3594568360035789368}
+  - component: {fileID: 2473215734437959969}
   - component: {fileID: 3594568360035789374}
   - component: {fileID: 3594568360035789369}
   m_Layer: 0
@@ -107,8 +106,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &3594568360035789372
-BoxCollider2D:
+--- !u!70 &2473215734437959969
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -116,39 +115,13 @@ BoxCollider2D:
   m_GameObject: {fileID: 3594568360035789347}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e28529b07aefef34a895ebb7490a657b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.030624986, y: -0.093269825}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.0625, y: 2}
-    newSize: {x: 2.0625, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.8746996, y: 0.6872084}
-  m_EdgeRadius: 0
---- !u!58 &3594568360035789368
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3594568360035789347}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.03204459, y: -0.56439626}
-  serializedVersion: 2
-  m_Radius: 0.43502545
+  m_Offset: {x: 0.06251091, y: -0.37521183}
+  m_Size: {x: 0.81248164, y: 1.249855}
+  m_Direction: 0
 --- !u!114 &3594568360035789374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,12 +135,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 11
-  jumpForce: 10
-  collider2d: {fileID: 3594568360035789368}
+  jumpForce: 13
+  playerCollider: {fileID: 2473215734437959969}
   ground:
     serializedVersion: 2
     m_Bits: 256
-  cherryCount: 0
+  cherry: 0
+  cherryCount: {fileID: 0}
 --- !u!95 &3594568360035789369
 Animator:
   serializedVersion: 3
