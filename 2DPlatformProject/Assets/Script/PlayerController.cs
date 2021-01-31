@@ -7,13 +7,15 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D body;
     private Animator animator;
+    private int cherry = 0;
+    private int diamond = 0;
 
     public float speed;
     public float jumpForce;
     public Collider2D playerCollider;
     public LayerMask ground;
-    public int cherry = 0;
     public Text cherryCount;
+    public Text diamondCount;
 
     void Start()
     {
@@ -55,10 +57,15 @@ public class PlayerController : MonoBehaviour
         }
     }
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Collection") {
+        if (collision.tag == "Cherry") {
             Destroy(collision.gameObject);
             cherry++;
             cherryCount.text = cherry.ToString();
+        }
+        if (collision.tag == "Diamond") {
+            Destroy(collision.gameObject);
+            diamond++;
+            diamondCount.text = diamond.ToString();
         }
     }
 }
