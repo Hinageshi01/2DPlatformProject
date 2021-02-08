@@ -2,28 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float jumpForce;
-    public Collider2D playerCollider;
     public LayerMask ground;
     public Text cherryCount;
     public Text diamondCount;
 
+    private Collider2D collisionBox;
     private Rigidbody2D body;
     private Animator animator;
     private int cherry = 0;
     private int diamond = 0;
     private bool isHurt = false;
-
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        collisionBox = GetComponent<Collider2D>();
     }
-
     void Update()
     {
         if (!isHurt) {
@@ -31,12 +29,11 @@ public class PlayerController : MonoBehaviour
         }
         AnimationSwitch();
     }
-
     void Movement() {
         float horizontalMove = Input.GetAxis("Horizontal");//-1f -> 1f
         float faceDirection = Input.GetAxisRaw("Horizontal");//-1, 0, 1
-        animator.SetFloat("Running", Mathf.Abs(horizontalMove));//0f -> 1f
 
+        animator.SetFloat("Running", Mathf.Abs(horizontalMove));//跑步
         body.velocity = new Vector2(horizontalMove * speed, body.velocity.y);//移动
         if (faceDirection != 0) {
             transform.localScale = new Vector3(faceDirection, 1, 1);//转身
@@ -54,7 +51,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", true);
         }
-        if (playerCollider.IsTouchingLayers(ground)) {//触地
+        if (collisionBox.IsTouchingLayers(ground)) {//触地
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
             animator.SetBool("Idling", true);
@@ -79,20 +76,18 @@ public class PlayerController : MonoBehaviour
             diamondCount.text = diamond.ToString();
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision) {//接敌
+    private void OnCollisionEnter2D(Collision2D collision) {//触敌
         if (collision.gameObject.tag == "Enemy") {
-            if(body.velocity.y < 0 && transform.position.y - collision.gameObject.transform.position.y >= 0.5f) {//下落接敌
+            if(body.velocity.y < 0 && transform.position.y - collision.transform.position.y >= 0.5f) {//下落触敌
                 Destroy(collision.gameObject);
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
             }
             else {//侧面接敌
-                if (transform.position.x <= collision.gameObject.transform.position.x) {
-                    isHurt = true;
+                isHurt = true;
+                if (transform.position.x <= collision.transform.position.x) {//右侧触敌
                     body.velocity = new Vector2(-10f, body.velocity.y + jumpForce * 0.7f);
                 }
-                else {
-                    isHurt = true;
+                else {//左侧接敌
                     body.velocity = new Vector2(10f, body.velocity.y + jumpForce * 0.7f);
                 }
             }

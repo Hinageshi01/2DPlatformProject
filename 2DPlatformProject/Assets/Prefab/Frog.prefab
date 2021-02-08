@@ -187,7 +187,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftPoint: {fileID: 1697810039845732063}
   rightPoint: {fileID: 1697810038410080404}
-  speed: 5
+  speed: 4
+  jumpForce: 2
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1697810039845732060
 GameObject:
   m_ObjectHideFlags: 0
