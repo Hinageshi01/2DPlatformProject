@@ -78,8 +78,9 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision) {//触敌
         if (collision.gameObject.tag == "Enemy") {
+            EnemyFrog froge = collision.gameObject.GetComponent<EnemyFrog>();
             if(body.velocity.y < 0 && transform.position.y - collision.transform.position.y >= 0.5f) {//下落触敌
-                Destroy(collision.gameObject);
+                froge.jumpOn();
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
             }
             else {//侧面接敌

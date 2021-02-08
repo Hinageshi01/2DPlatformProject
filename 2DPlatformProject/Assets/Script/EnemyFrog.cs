@@ -56,4 +56,10 @@ public class EnemyFrog : MonoBehaviour
             body.velocity = new Vector2(0, 0);
         }
     }
+    public void jumpOn() {
+        animator.SetTrigger("Death");
+    }
+    void death() {
+        Destroy(gameObject);
+    }
 }
