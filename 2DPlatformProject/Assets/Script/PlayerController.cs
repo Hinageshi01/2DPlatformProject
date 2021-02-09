@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask ground;
     public Text cherryCount;
     public Text diamondCount;
+    public AudioSource jumpAudio, HurtAudio, collectAudio;
 
     private Collider2D collisionBox;
     private Rigidbody2D body;
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(faceDirection, 1, 1);//转身
         }
         if (Input.GetButtonDown("Jump")) {
+            jumpAudio.Play();
             body.velocity = new Vector2(body.velocity.x, jumpForce);//跳跃
         }
     }
@@ -66,11 +68,13 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision) {//收集
         if (collision.tag == "Cherry") {
+            collectAudio.Play();
             Destroy(collision.gameObject);
             cherry++;
             cherryCount.text = cherry.ToString();
         }
         if (collision.tag == "Diamond") {
+            collectAudio.Play();
             Destroy(collision.gameObject);
             diamond++;
             diamondCount.text = diamond.ToString();
@@ -78,12 +82,13 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision) {//触敌
         if (collision.gameObject.tag == "Enemy") {
-            EnemyFrog froge = collision.gameObject.GetComponent<EnemyFrog>();
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if(body.velocity.y < 0 && transform.position.y - collision.transform.position.y >= 0.5f) {//下落触敌
-                froge.jumpOn();
+                enemy.jumpOn();
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
             }
             else {//侧面接敌
+                HurtAudio.Play();
                 isHurt = true;
                 if (transform.position.x <= collision.transform.position.x) {//右侧触敌
                     body.velocity = new Vector2(-10f, body.velocity.y + jumpForce * 0.7f);

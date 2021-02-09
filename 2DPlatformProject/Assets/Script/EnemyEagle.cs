@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyEagle : MonoBehaviour
+public class EnemyEagle : Enemy
 {
     public Transform topPoint, bottomPoint;
     public float speed;
 
     private Rigidbody2D body;
-    private Collider2D collisionBox;
     private float topY, bottomY;
     private bool isUp = true;
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         body = GetComponent<Rigidbody2D>();
-        collisionBox = GetComponent<Collider2D>();
         topY = topPoint.position.y;
         bottomY = bottomPoint.position.y;
         Destroy(topPoint.gameObject);

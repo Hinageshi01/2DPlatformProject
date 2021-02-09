@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFrog : MonoBehaviour
+public class EnemyFrog : Enemy
 {
     public Transform leftPoint, rightPoint;
     public float speed;
@@ -10,14 +10,13 @@ public class EnemyFrog : MonoBehaviour
     public LayerMask ground;
 
     private Rigidbody2D body;
-    private Animator animator;
     private Collider2D collisionBox;
     private float leftX, rightX;
     private bool isFaceLeft = true;
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         body = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
         collisionBox = GetComponent<Collider2D>();
         leftX = leftPoint.position.x;
         rightX = rightPoint.position.x;
@@ -55,11 +54,5 @@ public class EnemyFrog : MonoBehaviour
             animator.SetBool("Falling", false);
             body.velocity = new Vector2(0, 0);
         }
-    }
-    public void jumpOn() {
-        animator.SetTrigger("Death");
-    }
-    void death() {
-        Destroy(gameObject);
     }
 }
