@@ -10,18 +10,21 @@ public class PlayerController : MonoBehaviour
     public Text cherryCount;
     public Text diamondCount;
     public AudioSource jumpAudio, HurtAudio, collectAudio;
+    public Collider2D crouchCollider;
+    public Transform headPoint;
 
-    private Collider2D collisionBox;
+    new private Collider2D collider;
     private Rigidbody2D body;
     private Animator animator;
     private int cherry = 0;
     private int diamond = 0;
     private bool isHurt = false;
+    private bool standabld = false;
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        collisionBox = GetComponent<Collider2D>();
+        collider = GetComponent<Collider2D>();
     }
     void Update()
     {
@@ -34,14 +37,33 @@ public class PlayerController : MonoBehaviour
         float horizontalMove = Input.GetAxis("Horizontal");//-1f -> 1f
         float faceDirection = Input.GetAxisRaw("Horizontal");//-1, 0, 1
 
-        animator.SetFloat("Running", Mathf.Abs(horizontalMove));//跑步
-        body.velocity = new Vector2(horizontalMove * speed, body.velocity.y);//移动
-        if (faceDirection != 0) {
-            transform.localScale = new Vector3(faceDirection, 1, 1);//转身
+        animator.SetFloat("Running", Mathf.Abs(horizontalMove));//跑步动画
+        if (animator.GetBool("Crouching")) {//蹲下移动
+            body.velocity = new Vector2(horizontalMove * speed * 0.25f, body.velocity.y);
         }
-        if (Input.GetButtonDown("Jump")) {
+        else {//移动
+            body.velocity = new Vector2(horizontalMove * speed, body.velocity.y);
+        }
+        if (faceDirection != 0) {//转身
+            transform.localScale = new Vector3(faceDirection, 1, 1);
+        }
+        if (Input.GetButtonDown("Jump")) {//跳跃
             jumpAudio.Play();
-            body.velocity = new Vector2(body.velocity.x, jumpForce);//跳跃
+            body.velocity = new Vector2(body.velocity.x, jumpForce);
+        }
+        if (Input.GetButtonDown("Crouch")) {
+            collider.enabled = false;
+            crouchCollider.enabled = true;
+            animator.SetBool("Crouching", true);
+        }
+        if (Input.GetButtonUp("Crouch")) {
+            standabld = true;
+        }
+        if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.2f, ground)) {
+            standabld = false;
+            collider.enabled = true;
+            crouchCollider.enabled = false;
+            animator.SetBool("Crouching", false);
         }
     }
     void AnimationSwitch() {
@@ -53,7 +75,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", true);
         }
-        if (collisionBox.IsTouchingLayers(ground)) {//触地
+        if (collider.IsTouchingLayers(ground)) {//触地
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
             animator.SetBool("Idling", true);
@@ -83,7 +105,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) {//触敌
         if (collision.gameObject.tag == "Enemy") {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            if(body.velocity.y < 0 && transform.position.y - collision.transform.position.y >= 0.5f) {//下落触敌
+            if(body.velocity.y < 0 && transform.position.y - collision.transform.position.y >= 0.3f) {//下落触敌
                 enemy.jumpOn();
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
             }
