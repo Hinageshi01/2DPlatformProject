@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
     }
     public void jumpOn() {
-        audioSource.Play();
         animator.SetTrigger("Death");
     }
     public void death() {

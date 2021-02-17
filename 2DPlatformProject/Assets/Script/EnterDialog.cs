@@ -21,6 +21,10 @@ public class EnterDialog : MonoBehaviour
         if (collision.tag == "Player") {
             animator.SetBool("Enter", false);
             animator.SetBool("Exit", true);
+            Invoke("setActiceFalse", 0.2f);
         }
+    }
+    private void setActiceFalse() {
+        enterDialog.SetActive(false);
     }
 }

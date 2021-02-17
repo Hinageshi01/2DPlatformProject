@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2855042366184889540}
   - component: {fileID: 8900382947972673426}
   - component: {fileID: 6103594876514969437}
+  - component: {fileID: 95456887}
   m_Layer: 0
   m_Name: Diamond
   m_TagString: Diamond
@@ -101,3 +102,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &95456887
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4503691546328017932}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0011105537, y: 0.0359329}
+  serializedVersion: 2
+  m_Radius: 0.3946246

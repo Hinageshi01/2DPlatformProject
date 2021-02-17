@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class PlayerController : MonoBehaviour
 {
     public float speed;
@@ -9,11 +11,12 @@ public class PlayerController : MonoBehaviour
     public LayerMask ground;
     public Text cherryCount;
     public Text diamondCount;
-    public AudioSource jumpAudio, HurtAudio, collectAudio;
+    public AudioSource jumpAudio, HurtAudio, collectAudio, enemyDestoryAudio;
+    new public Collider2D collider;
+
     public Collider2D crouchCollider;
     public Transform headPoint;
 
-    new private Collider2D collider;
     private Rigidbody2D body;
     private Animator animator;
     private int cherry = 0;
@@ -24,7 +27,6 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        collider = GetComponent<Collider2D>();
     }
     void Update()
     {
@@ -88,7 +90,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision) {//收集
+    private void OnTriggerEnter2D(Collider2D collision) {
+        //收集
         if (collision.tag == "Cherry") {
             collectAudio.Play();
             Destroy(collision.gameObject);
@@ -101,12 +104,17 @@ public class PlayerController : MonoBehaviour
             diamond++;
             diamondCount.text = diamond.ToString();
         }
+        if (collision.tag == "DeadLine") {
+            GetComponent<AudioSource>().enabled = false;
+            Invoke("restart", 1f);
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision) {//触敌
         if (collision.gameObject.tag == "Enemy") {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            if(body.velocity.y < 0 && transform.position.y - collision.transform.position.y >= 0.3f) {//下落触敌
+            if(body.velocity.y < 0 && transform.position.y - collision.transform.position.y >= 0.2f) {//下落触敌
                 enemy.jumpOn();
+                enemyDestoryAudio.Play();
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
             }
             else {//侧面接敌
@@ -120,5 +128,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+    private void restart() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
