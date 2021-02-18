@@ -6,30 +6,30 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
-    public float jumpForce;
+    public float speed, jumpForce;
     public LayerMask ground;
-    public Text cherryCount;
-    public Text diamondCount;
+    public Text cherryCount, diamondCount;
     public AudioSource jumpAudio, HurtAudio, collectAudio, enemyDestoryAudio;
     new public Collider2D collider;
-
     public Collider2D crouchCollider;
     public Transform headPoint;
+    public int finalJumpCount;
 
     private Rigidbody2D body;
     private Animator animator;
-    private int cherry = 0;
-    private int diamond = 0;
-    private bool isHurt = false;
-    private bool standabld = false;
-    void Start()
-    {
+    private int cherry = 0, diamond = 0, jumpCount;
+    private bool isHurt = false, standabld = false, jumpPressed = false;
+    void Start(){
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
-    void Update()
-    {
+    void Update() {
+        if (Input.GetButtonDown("Jump") && jumpCount > 0) {
+            jumpPressed = true;
+        }
+        Crouch();
+    }
+    void FixedUpdate(){
         if (!isHurt) {
             Movement();
         }
@@ -39,20 +39,24 @@ public class PlayerController : MonoBehaviour
         float horizontalMove = Input.GetAxis("Horizontal");//-1f -> 1f
         float faceDirection = Input.GetAxisRaw("Horizontal");//-1, 0, 1
 
-        animator.SetFloat("Running", Mathf.Abs(horizontalMove));//跑步动画
+        animator.SetFloat("Running", Mathf.Abs(horizontalMove));//跑步动画参数
         if (animator.GetBool("Crouching")) {//蹲下移动
-            body.velocity = new Vector2(horizontalMove * speed * 0.25f, body.velocity.y);
+            body.velocity = new Vector2(horizontalMove * speed * Time.fixedDeltaTime * 0.25f, body.velocity.y);
         }
         else {//移动
-            body.velocity = new Vector2(horizontalMove * speed, body.velocity.y);
+            body.velocity = new Vector2(horizontalMove * speed * Time.fixedDeltaTime, body.velocity.y);
         }
         if (faceDirection != 0) {//转身
             transform.localScale = new Vector3(faceDirection, 1, 1);
         }
-        if (Input.GetButtonDown("Jump")) {//跳跃
-            jumpAudio.Play();
+        if (jumpPressed) {//跳跃
             body.velocity = new Vector2(body.velocity.x, jumpForce);
+            jumpAudio.Play();
+            jumpCount--;
+            jumpPressed = false;
         }
+    }
+    void Crouch() {//趴下
         if (Input.GetButtonDown("Crouch")) {
             collider.enabled = false;
             crouchCollider.enabled = true;
@@ -61,7 +65,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonUp("Crouch")) {
             standabld = true;
         }
-        if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.2f, ground)) {
+        if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.2f, ground)) {//趴下->站立
             standabld = false;
             collider.enabled = true;
             crouchCollider.enabled = false;
@@ -81,6 +85,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
             animator.SetBool("Idling", true);
+            jumpCount = finalJumpCount;
         }
         if (isHurt) {//受伤
             animator.SetBool("Hurt", true);
@@ -104,6 +109,7 @@ public class PlayerController : MonoBehaviour
             diamond++;
             diamondCount.text = diamond.ToString();
         }
+        //掉出地图
         if (collision.tag == "DeadLine") {
             GetComponent<AudioSource>().enabled = false;
             Invoke("restart", 1f);
@@ -119,7 +125,7 @@ public class PlayerController : MonoBehaviour
             }
             else {//侧面接敌
                 HurtAudio.Play();
-                isHurt = true;
+                isHurt = true;//用于切换动画以及屏蔽受伤状态下移动相关的输入
                 if (transform.position.x <= collision.transform.position.x) {//右侧触敌
                     body.velocity = new Vector2(-10f, body.velocity.y + jumpForce * 0.7f);
                 }

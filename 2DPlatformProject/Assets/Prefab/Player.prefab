@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a19b558fa9e55842a99a6c0b3d8d3f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 11
+  speed: 500
   jumpForce: 13
   ground:
     serializedVersion: 2
@@ -201,6 +201,7 @@ MonoBehaviour:
   collider: {fileID: 2473215734437959969}
   crouchCollider: {fileID: 7042480165279338099}
   headPoint: {fileID: 4682090734447636479}
+  finalJumpCount: 2
 --- !u!95 &3594568360035789369
 Animator:
   serializedVersion: 3

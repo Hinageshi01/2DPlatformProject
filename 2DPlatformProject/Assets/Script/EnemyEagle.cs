@@ -19,7 +19,6 @@ public class EnemyEagle : Enemy
         Destroy(topPoint.gameObject);
         Destroy(bottomPoint.gameObject);
     }
-
     void Update()
     {
         movement();

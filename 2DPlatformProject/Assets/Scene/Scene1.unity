@@ -1090,6 +1090,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3594568360035789374, guid: 42bc67ecc2c97be4393e0383aca031fb,
         type: 3}
+      propertyPath: speed
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3594568360035789374, guid: 42bc67ecc2c97be4393e0383aca031fb,
+        type: 3}
       propertyPath: cherryCount
       value: 
       objectReference: {fileID: 12892924}
@@ -1098,6 +1103,11 @@ PrefabInstance:
       propertyPath: diamondCount
       value: 
       objectReference: {fileID: 1340347293}
+    - target: {fileID: 3594568360035789374, guid: 42bc67ecc2c97be4393e0383aca031fb,
+        type: 3}
+      propertyPath: finalJumpCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42bc67ecc2c97be4393e0383aca031fb, type: 3}
 --- !u!1001 &604853230

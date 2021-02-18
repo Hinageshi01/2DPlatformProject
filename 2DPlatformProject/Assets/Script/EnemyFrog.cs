@@ -27,17 +27,17 @@ public class EnemyFrog : Enemy
     {
         AnimationSwitch();
     }
-    void movement() {
+    void movement() {//在动画事件中触发
         if (isFaceLeft) {//朝左
-            if (transform.position.x <= leftX) {
+            if (transform.position.x <= leftX) {//转身
                 isFaceLeft = false;
-                transform.localScale = new Vector3(-1, 1, 1);//转身
+                transform.localScale = new Vector3(-1, 1, 1);
             }
             body.velocity = new Vector2(-transform.localScale.x * speed, jumpForce);
             animator.SetBool("Jumping", true);
         }
         else {//朝右
-            if (transform.position.x >= rightX) {
+            if (transform.position.x >= rightX) {//转身
                 isFaceLeft = true;
                 transform.localScale = new Vector3(1, 1, 1);
             }
