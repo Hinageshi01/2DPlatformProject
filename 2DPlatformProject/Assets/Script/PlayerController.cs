@@ -82,10 +82,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Falling", true);
         }
         if (collider.IsTouchingLayers(ground)) {//触地
+            if (body.velocity.y <= 0) {
+                jumpCount = finalJumpCount;
+            }
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
             animator.SetBool("Idling", true);
-            jumpCount = finalJumpCount;
         }
         if (isHurt) {//受伤
             animator.SetBool("Hurt", true);
