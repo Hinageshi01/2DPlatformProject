@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public float speed, jumpForce;
     public LayerMask ground;
     public Text cherryCount, diamondCount;
-    public AudioSource jumpAudio, HurtAudio, collectAudio, enemyDestoryAudio;
     public Collider2D usualCollider, crouchCollider;
     public Transform headPoint, footPoint;
     public int finalJumpCount;
@@ -50,7 +49,7 @@ public class PlayerController : MonoBehaviour
         }
         if (jumpPressed) {//跳跃
             body.velocity = new Vector2(body.velocity.x, jumpForce);
-            jumpAudio.Play();
+            SoundMananger.soundMananger.JumpAudio();
             jumpCount--;
             jumpPressed = false;
         }
@@ -99,13 +98,13 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         //收集
         if (collision.tag == "Cherry") {
-            collectAudio.Play();
+            SoundMananger.soundMananger.CollectAudio();
             Destroy(collision.gameObject);
             cherry++;
             cherryCount.text = cherry.ToString();
         }
         if (collision.tag == "Diamond") {
-            collectAudio.Play();
+            SoundMananger.soundMananger.CollectAudio();
             Destroy(collision.gameObject);
             diamond++;
             diamondCount.text = diamond.ToString();
@@ -121,11 +120,11 @@ public class PlayerController : MonoBehaviour
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if(body.velocity.y < 0 && transform.position.y - collision.transform.position.y >= 0.2f) {//下落触敌
                 enemy.jumpOn();
-                enemyDestoryAudio.Play();
+                SoundMananger.soundMananger.EnemyDestoryAudio();
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
             }
             else {//侧面接敌
-                HurtAudio.Play();
+                SoundMananger.soundMananger.HurtAudio();
                 isHurt = true;//用于切换动画以及屏蔽受伤状态下移动相关的输入
                 if (transform.position.x <= collision.transform.position.x) {//右侧触敌
                     body.velocity = new Vector2(-10f, body.velocity.y + jumpForce * 0.7f);
