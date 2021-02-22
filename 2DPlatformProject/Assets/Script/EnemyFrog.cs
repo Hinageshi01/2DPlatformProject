@@ -13,8 +13,7 @@ public class EnemyFrog : Enemy
     private Collider2D collisionBox;
     private float leftX, rightX;
     private bool isFaceLeft = true;
-    protected override void Start()
-    {
+    protected override void Start() {
         base.Start();
         body = GetComponent<Rigidbody2D>();
         collisionBox = GetComponent<Collider2D>();
@@ -23,11 +22,10 @@ public class EnemyFrog : Enemy
         Destroy(leftPoint.gameObject);
         Destroy(rightPoint.gameObject);
     }
-    void Update()
-    {
+    void Update() {
         AnimationSwitch();
     }
-    void movement() {//在动画事件中触发
+    void movement() {//在Idel动画事件中调用
         if (isFaceLeft) {//朝左
             if (transform.position.x <= leftX) {//转身
                 isFaceLeft = false;

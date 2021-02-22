@@ -10,9 +10,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask ground;
     public Text cherryCount, diamondCount;
     public AudioSource jumpAudio, HurtAudio, collectAudio, enemyDestoryAudio;
-    new public Collider2D collider;
-    public Collider2D crouchCollider;
-    public Transform headPoint;
+    public Collider2D usualCollider, crouchCollider;
+    public Transform headPoint, footPoint;
     public int finalJumpCount;
 
     private Rigidbody2D body;
@@ -58,7 +57,7 @@ public class PlayerController : MonoBehaviour
     }
     void Crouch() {//趴下
         if (Input.GetButtonDown("Crouch")) {
-            collider.enabled = false;
+            usualCollider.enabled = false;
             crouchCollider.enabled = true;
             animator.SetBool("Crouching", true);
         }
@@ -67,7 +66,7 @@ public class PlayerController : MonoBehaviour
         }
         if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.2f, ground)) {//趴下->站立
             standabld = false;
-            collider.enabled = true;
+            usualCollider.enabled = true;
             crouchCollider.enabled = false;
             animator.SetBool("Crouching", false);
         }
@@ -81,8 +80,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", true);
         }
-        if (collider.IsTouchingLayers(ground)) {//触地
-            if (body.velocity.y <= 0) {
+        if (Physics2D.OverlapCircle(footPoint.position,0.2f,ground)) {//触地，也可以写成collider.IsTouchingLayers(ground)
+            if (body.velocity.y <= 0) {//重置跳跃次数
                 jumpCount = finalJumpCount;
             }
             animator.SetBool("Jumping", false);
@@ -114,7 +113,7 @@ public class PlayerController : MonoBehaviour
         //掉出地图
         if (collision.tag == "DeadLine") {
             GetComponent<AudioSource>().enabled = false;
-            Invoke("restart", 1f);
+            Invoke("restart", 0.5f);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision) {//触敌

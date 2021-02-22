@@ -10,8 +10,7 @@ public class EnemyEagle : Enemy
     private Rigidbody2D body;
     private float topY, bottomY;
     private bool isUp = true;
-    protected override void Start()
-    {
+    protected override void Start() {
         base.Start();
         body = GetComponent<Rigidbody2D>();
         topY = topPoint.position.y;
@@ -19,8 +18,7 @@ public class EnemyEagle : Enemy
         Destroy(topPoint.gameObject);
         Destroy(bottomPoint.gameObject);
     }
-    void Update()
-    {
+    void Update() {
         movement();
     }
     void movement() {

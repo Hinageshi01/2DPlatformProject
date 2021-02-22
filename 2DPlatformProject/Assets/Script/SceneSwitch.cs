@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitch : MonoBehaviour
 {
-    void Update()
-    {
+    void Update() {
         if (Input.GetKeyDown(KeyCode.E)) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
