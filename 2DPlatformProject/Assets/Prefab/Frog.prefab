@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: RightPoint
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -129,7 +129,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftPoint: {fileID: 1697810039845732063}
   rightPoint: {fileID: 1697810038410080404}
-  speed: 4
+  speed: 3
   jumpForce: 2
   ground:
     serializedVersion: 2
@@ -204,7 +204,7 @@ GameObject:
   m_Layer: 0
   m_Name: LeftPoint
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

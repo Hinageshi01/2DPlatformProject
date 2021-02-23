@@ -11,17 +11,19 @@ public class PlayerController : MonoBehaviour
     public Text cherryCount, diamondCount;
     public Collider2D usualCollider, crouchCollider;
     public Transform headPoint, footPoint;
+    public AudioSource jumpSource;
     public int finalJumpCount;
 
     private Rigidbody2D body;
     private Animator animator;
+    [SerializeField]
     private int cherry = 0, diamond = 0, jumpCount;
-    private bool isHurt = false, standabld = false, jumpPressed = false;
+    private bool isHurt = false, standabld = false, jumpPressed = false, isJumped = false;
     void Start(){
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
-    void Update() {
+    void Update() {//在Update中确保能敏感地接收到起跳/下蹲请求，再去FixedUpDate中进行Rigidbody相关的运算
         if (Input.GetButtonDown("Jump") && jumpCount > 0) {
             jumpPressed = true;
         }
@@ -48,10 +50,20 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(faceDirection, 1, 1);
         }
         if (jumpPressed) {//跳跃
-            body.velocity = new Vector2(body.velocity.x, jumpForce);
-            SoundMananger.soundMananger.JumpAudio();
-            jumpCount--;
-            jumpPressed = false;
+            if (Physics2D.OverlapCircle(footPoint.position, 0.3f, ground)) {//地面起跳
+                body.velocity = new Vector2(body.velocity.x, jumpForce);
+                jumpSource.Play();
+                jumpCount--;
+                jumpPressed = false;
+                isJumped = true;//代表经过跳跃离开地面
+            }
+            else if (isJumped) {//空中起跳
+                body.velocity = new Vector2(body.velocity.x, jumpForce);
+                jumpSource.Play();
+                jumpCount--;
+                jumpPressed = false;
+            }
+            //剩余情况即不经跳跃离开地面并请求跳跃，不予起跳
         }
     }
     void Crouch() {//趴下
@@ -63,7 +75,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonUp("Crouch")) {
             standabld = true;
         }
-        if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.2f, ground)) {//趴下->站立
+        if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.3f, ground)) {//趴下->站立
             standabld = false;
             usualCollider.enabled = true;
             crouchCollider.enabled = false;
@@ -79,9 +91,10 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", true);
         }
-        if (Physics2D.OverlapCircle(footPoint.position,0.2f,ground)) {//触地，也可以写成collider.IsTouchingLayers(ground)
-            if (body.velocity.y <= 0) {//重置跳跃次数
+        if (Physics2D.OverlapCircle(footPoint.position,0.2f,ground)) {//脚底触地，身体触地可以写成collider.IsTouchingLayers(ground)
+            if (body.velocity.y <= 0) {//重置跳跃相关参数
                 jumpCount = finalJumpCount;
+                isJumped = false;
             }
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
@@ -102,6 +115,7 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             cherry++;
             cherryCount.text = cherry.ToString();
+            jumpCount++;
         }
         if (collision.tag == "Diamond") {
             SoundMananger.soundMananger.CollectAudio();
@@ -111,19 +125,19 @@ public class PlayerController : MonoBehaviour
         }
         //掉出地图
         if (collision.tag == "DeadLine") {
-            GetComponent<AudioSource>().enabled = false;
+            SoundMananger.soundMananger.GameOver();
             Invoke("restart", 0.5f);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision) {//触敌
         if (collision.gameObject.tag == "Enemy") {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            if(body.velocity.y < 0 && transform.position.y - collision.transform.position.y >= 0.2f) {//下落触敌
+            if ((body.velocity.y < 0 || animator.GetBool("Falling")) && transform.position.y - collision.transform.position.y > 0.35f) {//下落触敌
+                Enemy enemy = collision.gameObject.GetComponent<Enemy>();
                 enemy.jumpOn();
                 SoundMananger.soundMananger.EnemyDestoryAudio();
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
             }
-            else {//侧面接敌
+            else {//受伤
                 SoundMananger.soundMananger.HurtAudio();
                 isHurt = true;//用于切换动画以及屏蔽受伤状态下移动相关的输入
                 if (transform.position.x <= collision.transform.position.x) {//右侧触敌

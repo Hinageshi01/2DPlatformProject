@@ -8,13 +8,9 @@ public class SoundMananger : MonoBehaviour
     public static SoundMananger soundMananger;
 
     [SerializeField]
-    private AudioClip jumpAudio, hurtAudio, collectAudio, enemyDestoryAudio;
+    private AudioClip hurtAudio, collectAudio, enemyDestoryAudio;
     private void Awake() {
         soundMananger = this;
-    }
-    public void JumpAudio() {
-        audioSource.clip = jumpAudio;
-        audioSource.Play();
     }
     public void HurtAudio() {
         audioSource.clip = hurtAudio;
@@ -27,5 +23,8 @@ public class SoundMananger : MonoBehaviour
     public void EnemyDestoryAudio() {
         audioSource.clip = enemyDestoryAudio;
         audioSource.Play();
+    }
+    public void GameOver() {
+        GetComponent<AudioSource>().enabled = false;
     }
 }

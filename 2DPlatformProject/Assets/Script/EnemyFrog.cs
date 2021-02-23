@@ -25,6 +25,16 @@ public class EnemyFrog : Enemy
     void Update() {
         AnimationSwitch();
     }
+    void AnimationSwitch() {
+        if (animator.GetBool("Jumping") && body.velocity.y <= 0) {
+            animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", true);
+        }
+        if (animator.GetBool("Falling") && collisionBox.IsTouchingLayers(ground)) {
+            animator.SetBool("Falling", false);
+            body.velocity = new Vector2(0, 0);
+        }
+    }
     void movement() {//在Idel动画事件中调用
         if (isFaceLeft) {//朝左
             if (transform.position.x <= leftX) {//转身
@@ -41,16 +51,6 @@ public class EnemyFrog : Enemy
             }
             body.velocity = new Vector2(-transform.localScale.x * speed, jumpForce);
             animator.SetBool("Jumping", true);
-        }
-    }
-    void AnimationSwitch() {
-        if (animator.GetBool("Jumping") && body.velocity.y <= 0) {
-            animator.SetBool("Jumping", false);
-            animator.SetBool("Falling", true);
-        }
-        if (animator.GetBool("Falling") && collisionBox.IsTouchingLayers(ground)) {
-            animator.SetBool("Falling", false);
-            body.velocity = new Vector2(0, 0);
         }
     }
 }
