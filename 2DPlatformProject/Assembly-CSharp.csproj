@@ -72,10 +72,10 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
+    <Compile Include="Assets\Script\Dialog.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\EnemyEagle.cs" />
     <Compile Include="Assets\Script\EnemyFrog.cs" />
-    <Compile Include="Assets\Script\EnterDialog.cs" />
     <Compile Include="Assets\Script\MainMenu.cs" />
     <Compile Include="Assets\Script\MenuBackGroundLoop.cs" />
     <Compile Include="Assets\Script\Parallax.cs" />
