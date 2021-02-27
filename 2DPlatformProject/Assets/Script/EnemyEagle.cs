@@ -9,7 +9,7 @@ public class EnemyEagle : Enemy
 
     private Rigidbody2D body;
     private float topY, bottomY;
-    private bool isUp = true;
+    private bool isUp = false;
     protected override void Start() {
         base.Start();
         body = GetComponent<Rigidbody2D>();
@@ -23,13 +23,13 @@ public class EnemyEagle : Enemy
     }
     void movement() {
         if (isUp) {
-            body.velocity = new Vector2(body.velocity.x, speed);
+            body.velocity = new Vector2(0, speed);
             if (transform.position.y >= topY) {
                 isUp = false;
             }
         }
         else {
-            body.velocity = new Vector2(body.velocity.x, -speed);
+            body.velocity = new Vector2(0, -speed);
             if (transform.position.y <= bottomY) {
                 isUp = true;
             }

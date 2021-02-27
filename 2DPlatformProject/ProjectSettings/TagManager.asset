@@ -8,6 +8,7 @@ TagManager:
   - Diamond
   - Enemy
   - DeadLine
+  - Spikes
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,9 @@ TagManager:
     locked: 0
   - name: BackGround
     uniqueID: 1292618091
+    locked: 0
+  - name: Environment3
+    uniqueID: 1849675367
     locked: 0
   - name: Environment2
     uniqueID: 2122343539

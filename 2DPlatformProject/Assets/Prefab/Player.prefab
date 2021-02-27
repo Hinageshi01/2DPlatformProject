@@ -106,7 +106,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1905711533
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 72de0c64f2c6a498096698322c976a67, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -130,8 +130,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 1
-  m_Mass: 0.87381995
+  m_UseAutoMass: 0
+  m_Mass: 0.1
   m_LinearDrag: 0
   m_AngularDrag: 0.01
   m_GravityScale: 4
@@ -165,7 +165,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 3594568360035789347}
   m_Enabled: 0
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e28529b07aefef34a895ebb7490a657b, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -216,6 +216,9 @@ MonoBehaviour:
   footPoint: {fileID: 3620632403148271792}
   jumpSource: {fileID: 6439537235902477486}
   finalJumpCount: 2
+  cherry: 0
+  diamond: 0
+  jumpCount: 0
 --- !u!82 &6439537235902477486
 AudioSource:
   m_ObjectHideFlags: 0

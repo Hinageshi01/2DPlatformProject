@@ -64,10 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Joystick Pack\Scripts\Editor\DynamicJoystickEditor.cs" />
-    <Compile Include="Assets\Joystick Pack\Scripts\Editor\FloatingJoystickEditor.cs" />
-    <Compile Include="Assets\Joystick Pack\Scripts\Editor\JoystickEditor.cs" />
-    <Compile Include="Assets\Joystick Pack\Scripts\Editor\VariableJoystickEditor.cs" />
+    <Compile Include="Assets\Joystick\Scripts\Editor\DynamicJoystickEditor.cs" />
+    <Compile Include="Assets\Joystick\Scripts\Editor\FloatingJoystickEditor.cs" />
+    <Compile Include="Assets\Joystick\Scripts\Editor\JoystickEditor.cs" />
+    <Compile Include="Assets\Joystick\Scripts\Editor\VariableJoystickEditor.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.18f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

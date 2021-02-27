@@ -123,14 +123,19 @@ public class PlayerController : MonoBehaviour
             diamond++;
             diamondCount.text = diamond.ToString();
         }
-        //掉出地图
-        if (collision.tag == "DeadLine") {
+        if (collision.tag == "DeadLine") {//掉出地图
             SoundMananger.soundMananger.GameOver();
-            Invoke("restart", 0.5f);
+            Invoke("Restart", 0.5f);
+        }
+        if (collision.tag == "Spikes") {//踩到刺上
+            Invoke("Restart", 0.23f);
+            SoundMananger.soundMananger.HurtAudio();
+            isHurt = true;
+            body.velocity = new Vector2(0, jumpForce * 0.7f);
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision) {//触敌
-        if (collision.gameObject.tag == "Enemy") {
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.tag == "Enemy") {//触敌
             if ((body.velocity.y < 0 || animator.GetBool("Falling")) && transform.position.y - collision.transform.position.y > 0.35f) {//下落触敌
                 Enemy enemy = collision.gameObject.GetComponent<Enemy>();
                 enemy.jumpOn();
@@ -149,7 +154,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    private void restart() {
+    private void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
