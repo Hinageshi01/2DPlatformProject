@@ -6,10 +6,10 @@ public class EnemyEagle : Enemy
 {
     public Transform topPoint, bottomPoint;
     public float speed;
+    public bool isUp;
 
     private Rigidbody2D body;
     private float topY, bottomY;
-    private bool isUp = false;
     protected override void Start() {
         base.Start();
         body = GetComponent<Rigidbody2D>();

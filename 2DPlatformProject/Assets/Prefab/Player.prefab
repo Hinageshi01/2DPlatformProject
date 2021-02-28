@@ -40,11 +40,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3594568360035789373}
   - component: {fileID: 3594568360035789346}
+  - component: {fileID: 3594568360035789374}
   - component: {fileID: 3594568360035789375}
   - component: {fileID: 2473215734437959969}
   - component: {fileID: 7042480165279338099}
   - component: {fileID: 3594568360035789369}
-  - component: {fileID: 3594568360035789374}
   - component: {fileID: 6439537235902477486}
   m_Layer: 0
   m_Name: Player
@@ -106,7 +106,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1905711533
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 72de0c64f2c6a498096698322c976a67, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -119,6 +119,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3594568360035789374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594568360035789347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a19b558fa9e55842a99a6c0b3d8d3f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 380
+  jumpForce: 12
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
+  cherryCount: {fileID: 0}
+  diamondCount: {fileID: 0}
+  usualCollider: {fileID: 2473215734437959969}
+  crouchCollider: {fileID: 7042480165279338099}
+  headPoint: {fileID: 4682090734447636479}
+  footPoint: {fileID: 3620632403148271792}
+  jumpSource: {fileID: 6439537235902477486}
+  finalJumpCount: 2
+  cherry: 0
+  diamond: 0
+  jumpCount: 0
 --- !u!50 &3594568360035789375
 Rigidbody2D:
   serializedVersion: 4
@@ -191,34 +219,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3594568360035789374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3594568360035789347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a19b558fa9e55842a99a6c0b3d8d3f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 380
-  jumpForce: 12
-  ground:
-    serializedVersion: 2
-    m_Bits: 256
-  cherryCount: {fileID: 0}
-  diamondCount: {fileID: 0}
-  usualCollider: {fileID: 2473215734437959969}
-  crouchCollider: {fileID: 7042480165279338099}
-  headPoint: {fileID: 4682090734447636479}
-  footPoint: {fileID: 3620632403148271792}
-  jumpSource: {fileID: 6439537235902477486}
-  finalJumpCount: 2
-  cherry: 0
-  diamond: 0
-  jumpCount: 0
 --- !u!82 &6439537235902477486
 AudioSource:
   m_ObjectHideFlags: 0

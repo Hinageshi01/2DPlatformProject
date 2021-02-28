@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     }
     void Movement() {
         float horizontalMove = Input.GetAxis("Horizontal");//-1f -> 1f
-        float faceDirection = Input.GetAxisRaw("Horizontal");//-1, 0, 1
+        float forward = Input.GetAxisRaw("Horizontal");//-1, 0, 1
 
         animator.SetFloat("Running", Mathf.Abs(horizontalMove));//跑步动画参数
         if (animator.GetBool("Crouching")) {//蹲下移动
@@ -46,8 +46,8 @@ public class PlayerController : MonoBehaviour
         else {//移动
             body.velocity = new Vector2(horizontalMove * speed * Time.fixedDeltaTime, body.velocity.y);
         }
-        if (faceDirection != 0) {//转身
-            transform.localScale = new Vector3(faceDirection, 1, 1);
+        if (forward != 0) {//转身
+            transform.localScale = new Vector3(forward, 1, 1);
         }
         if (jumpPressed) {//跳跃
             if (Physics2D.OverlapCircle(footPoint.position, 0.3f, ground)) {//地面起跳
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
                 jumpCount--;
                 jumpPressed = false;
             }
-            //剩余情况即不经跳跃离开地面并请求跳跃，不予起跳
+            //剩余情况为不经跳跃离开地面且没有消灭敌人时请求跳跃，不予起跳
         }
     }
     void Crouch() {//趴下
@@ -136,11 +136,13 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Enemy") {//触敌
-            if ((body.velocity.y < 0 || animator.GetBool("Falling")) && transform.position.y - collision.transform.position.y > 0.35f) {//下落触敌
+            if (animator.GetBool("Falling") && transform.position.y - collision.transform.position.y > 0.35f) {//下落触敌
                 Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-                enemy.jumpOn();
+                enemy.Death();
                 SoundMananger.soundMananger.EnemyDestoryAudio();
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
+                jumpCount = finalJumpCount;
+                isJumped = true;//无论怎样离开地面，消灭敌人后解锁跳跃条件
             }
             else {//受伤
                 SoundMananger.soundMananger.HurtAudio();

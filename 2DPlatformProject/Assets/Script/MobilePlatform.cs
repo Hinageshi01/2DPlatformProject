@@ -6,10 +6,10 @@ public class MobilePlatform : MonoBehaviour
 {
     public Transform topPoint, bottomPoint;
     public float speed;
+    public bool isUp;
 
     private Rigidbody2D body;
     private float topY, bottomY;
-    private bool isUp = false;
     void Start() {
         body = GetComponent<Rigidbody2D>();
         topY = topPoint.position.y;

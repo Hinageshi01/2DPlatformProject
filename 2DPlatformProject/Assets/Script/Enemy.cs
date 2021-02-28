@@ -10,12 +10,12 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidbody2 = GetComponent<Rigidbody2D>();
     }
-    public void jumpOn() {
+    public void Death() {
         GetComponent<Collider2D>().enabled = false;
         rigidbody2.constraints = RigidbodyConstraints2D.FreezeAll;
         animator.SetTrigger("Death");
     }
-    public void death() {
+    public void Disappear() {
         Destroy(gameObject);
     }
 }

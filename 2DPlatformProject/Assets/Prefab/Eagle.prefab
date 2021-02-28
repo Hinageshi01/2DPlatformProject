@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2357581721337777780}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -0.1381836}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2357581721988241249}
@@ -40,10 +40,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2357581721988241249}
   - component: {fileID: 2357581721988241248}
+  - component: {fileID: 2357581721988241245}
   - component: {fileID: 2357581721988241247}
   - component: {fileID: 2357581721988241246}
   - component: {fileID: 2357581721988241244}
-  - component: {fileID: 2357581721988241245}
   m_Layer: 0
   m_Name: Eagle
   m_TagString: Enemy
@@ -104,7 +104,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1905711533
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f240dfd4814d34d55a9b033f3c9d8a60, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -117,6 +117,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2357581721988241245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357581721988241251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd86f484ff7f95d46aa70846ed4c7e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topPoint: {fileID: 2357581721337777781}
+  bottomPoint: {fileID: 2357581722589420105}
+  player: {fileID: 3594568360035789373, guid: 42bc67ecc2c97be4393e0383aca031fb, type: 3}
+  speed: 5
+  isUp: 0
 --- !u!50 &2357581721988241247
 Rigidbody2D:
   serializedVersion: 4
@@ -151,9 +168,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.24491775, y: -0.38}
+  m_Offset: {x: -0.09698105, y: -0.14136696}
   serializedVersion: 2
-  m_Radius: 0.7359284
+  m_Radius: 0.98955345
 --- !u!95 &2357581721988241244
 Animator:
   serializedVersion: 3
@@ -173,21 +190,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2357581721988241245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2357581721988241251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd86f484ff7f95d46aa70846ed4c7e78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  topPoint: {fileID: 2357581721337777781}
-  bottomPoint: {fileID: 2357581722589420105}
-  speed: 5
 --- !u!1 &2357581722589420104
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2357581722589420104}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: -0.1381836}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2357581721988241249}
