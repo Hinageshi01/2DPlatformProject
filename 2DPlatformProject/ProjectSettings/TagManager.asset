@@ -46,16 +46,16 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: BackGround
+  - name: BackGround1
     uniqueID: 1292618091
     locked: 0
-  - name: Environment3
+  - name: BackGround2
     uniqueID: 1849675367
     locked: 0
-  - name: Environment2
+  - name: BackGround3
     uniqueID: 2122343539
     locked: 0
-  - name: Environment1
+  - name: BackGround4
     uniqueID: 951372577
     locked: 0
   - name: Player
