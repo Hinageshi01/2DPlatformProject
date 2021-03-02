@@ -46,21 +46,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: BackGround1
+  - name: Background1
     uniqueID: 1292618091
     locked: 0
-  - name: BackGround2
+  - name: Background2
     uniqueID: 1849675367
     locked: 0
-  - name: BackGround3
+  - name: Background3
     uniqueID: 2122343539
     locked: 0
-  - name: BackGround4
+  - name: Background4
     uniqueID: 951372577
     locked: 0
   - name: Player
     uniqueID: 1905711533
     locked: 0
-  - name: FrontGround
+  - name: Frontground
     uniqueID: 836479631
     locked: 0
