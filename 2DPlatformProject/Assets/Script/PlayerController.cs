@@ -110,24 +110,24 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision) {
         //收集
-        if (collision.tag == "Cherry") {
+        if (collision.CompareTag("Cherry")) {
             SoundMananger.soundMananger.CollectAudio();
             Destroy(collision.gameObject);
             cherry++;
             cherryCount.text = cherry.ToString();
             jumpCount++;
         }
-        if (collision.tag == "Diamond") {
+        if (collision.CompareTag("Diamond")) {
             SoundMananger.soundMananger.CollectAudio();
             Destroy(collision.gameObject);
             diamond++;
             diamondCount.text = diamond.ToString();
         }
-        if (collision.tag == "DeadLine") {//掉出地图
+        if (collision.CompareTag("DeadLine")) {//掉出地图
             SoundMananger.soundMananger.GameOver();
             Invoke("Restart", 0.5f);
         }
-        if (collision.tag == "Spikes") {//踩到刺上
+        if (collision.CompareTag("Spikes")) {//踩到刺上
             Invoke("Restart", 0.23f);
             SoundMananger.soundMananger.HurtAudio();
             isHurt = true;
@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Enemy") {//触敌
+        if (collision.gameObject.CompareTag("Enemy")) {//触敌
             if (animator.GetBool("Falling") && transform.position.y - collision.transform.position.y > 0.35f) {//下落触敌
                 Enemy enemy = collision.gameObject.GetComponent<Enemy>();
                 enemy.Death();

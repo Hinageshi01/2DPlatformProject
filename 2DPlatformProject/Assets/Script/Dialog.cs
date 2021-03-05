@@ -11,14 +11,14 @@ public class Dialog : MonoBehaviour
         animator = dialog.GetComponent<Animator>();
     }
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Player") {
+        if (collision.CompareTag("Player")) {
             dialog.SetActive(true);
             animator.SetBool("Enter", true);
             animator.SetBool("Exit", false);
         }
     }
     private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.tag == "Player") {
+        if (collision.CompareTag("Player")) {
             animator.SetBool("Enter", false);
             animator.SetBool("Exit", true);
             Invoke("setActiceFalse", 0.2f);
