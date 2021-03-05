@@ -352,7 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {fileID: 151673689}
   endPoint: {fileID: 322724195}
-  moveSpeed: 0.005
+  moveSpeed: 0.01
 --- !u!1 &322724194
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {fileID: 151673689}
   endPoint: {fileID: 322724195}
-  moveSpeed: 0.005
+  moveSpeed: 0.01
 --- !u!1 &568786800
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class MenuBackGroundLoop : MonoBehaviour
         startX = startPoint.position.x;
         endX = endPoint.position.x;
     }
-    void Update() {
+    void FixedUpdate() {
         transform.position = new Vector2(transform.position.x - moveSpeed, transform.position.y);
         if (transform.position.x < endX) {
             transform.position = new Vector2(startX, transform.position.y);
