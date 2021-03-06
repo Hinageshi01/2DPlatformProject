@@ -10,8 +10,8 @@ public class Dialog : MonoBehaviour
     private void Start() {
         animator = dialog.GetComponent<Animator>();
     }
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Player")) {
+    private void OnTriggerStay2D(Collider2D collision) {
+        if (collision.CompareTag("Player") && !dialog.activeSelf) {
             dialog.SetActive(true);
             animator.SetBool("Enter", true);
             animator.SetBool("Exit", false);
@@ -21,7 +21,7 @@ public class Dialog : MonoBehaviour
         if (collision.CompareTag("Player")) {
             animator.SetBool("Enter", false);
             animator.SetBool("Exit", true);
-            Invoke("setActiceFalse", 0.2f);
+            Invoke("setActiceFalse", 0.1f);//等待退出动画结束
         }
     }
     private void setActiceFalse() {

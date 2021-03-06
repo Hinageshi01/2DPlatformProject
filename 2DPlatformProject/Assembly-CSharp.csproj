@@ -72,7 +72,9 @@
     <Compile Include="Assets\Joystick\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\Joystick\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Joystick\Scripts\Joysticks\VariableJoystick.cs" />
+    <Compile Include="Assets\Script\BlackBox.cs" />
     <Compile Include="Assets\Script\Dialog.cs" />
+    <Compile Include="Assets\Script\Ending.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\EnemyEagle.cs" />
     <Compile Include="Assets\Script\EnemyFrog.cs" />

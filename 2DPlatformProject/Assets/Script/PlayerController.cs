@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed, jumpForce;
     public LayerMask ground;
-    public Text cherryCount, diamondCount;
+    public Text diamondCount;
     public Collider2D usualCollider, crouchCollider;
     public Transform headPoint, footPoint;
     public AudioSource jumpSource;
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D body;
     private Animator animator;
     [SerializeField]
-    private int cherry = 0, diamond = 0, jumpCount;
+    private int diamond = 0, jumpCount;
     private bool isHurt = false, standabld = false, jumpPressed = false, isJumped = false;
     void Start(){
         body = GetComponent<Rigidbody2D>();
@@ -63,23 +63,25 @@ public class PlayerController : MonoBehaviour
                 jumpCount--;
                 jumpPressed = false;
             }
-            //剩余情况为不经跳跃离开地面且没有消灭敌人时请求跳跃，不予起跳
+            //剩余情况为不经跳跃离开地面且没有消灭敌人/吃到樱桃时请求跳跃，不予起跳
         }
     }
     void Crouch() {//趴下
-        if (Input.GetButtonDown("Crouch")) {
-            usualCollider.enabled = false;
-            crouchCollider.enabled = true;
-            animator.SetBool("Crouching", true);
-        }
         if (Input.GetButtonUp("Crouch")) {
             standabld = true;
         }
-        if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.3f, ground)) {//趴下->站立
-            standabld = false;
-            usualCollider.enabled = true;
-            crouchCollider.enabled = false;
-            animator.SetBool("Crouching", false);
+        if (!Time.timeScale.Equals(0)) {
+            if (Input.GetButtonDown("Crouch")) {
+                usualCollider.enabled = false;
+                crouchCollider.enabled = true;
+                animator.SetBool("Crouching", true);
+            }
+            if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.3f, ground)) {//趴下->站立
+                standabld = false;
+                usualCollider.enabled = true;
+                crouchCollider.enabled = false;
+                animator.SetBool("Crouching", false);
+            }
         }
     }
     void AnimationSwitch() {
@@ -113,15 +115,15 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Cherry")) {
             SoundMananger.soundMananger.CollectAudio();
             Destroy(collision.gameObject);
-            cherry++;
-            cherryCount.text = cherry.ToString();
             jumpCount++;
+            isJumped = true;//无论怎样离开地面，吃到樱桃后解锁跳跃条件
         }
         if (collision.CompareTag("Diamond")) {
             SoundMananger.soundMananger.CollectAudio();
             Destroy(collision.gameObject);
             diamond++;
             diamondCount.text = diamond.ToString();
+            Debug.Log(diamond);
         }
         if (collision.CompareTag("DeadLine")) {//掉出地图
             SoundMananger.soundMananger.GameOver();
@@ -157,6 +159,6 @@ public class PlayerController : MonoBehaviour
         }
     }
     private void Restart() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
 }

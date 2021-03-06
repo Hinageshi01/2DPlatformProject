@@ -8,17 +8,34 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public AudioMixer audioMixer;
+    public void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (pauseMenu.activeSelf) {
+                ResumeGame();
+            }
+            else {
+                PauseGame();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.R)) {
+            RestartGame();
+        }
+    }
     public void PauseGame() {
-        pauseMenu.SetActive(true);
         Time.timeScale = 0f;
+        pauseMenu.SetActive(true);
     }
     public void ResumeGame() {
-        pauseMenu.SetActive(false);
         Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
+    }
+    public void BackToMenu() {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
     public void RestartGame() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
     public void QuitGame() {
         Application.Quit();
