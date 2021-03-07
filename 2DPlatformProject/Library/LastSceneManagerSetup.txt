@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scene/Scene4.unity
+- path: Assets/Scene/Menu.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

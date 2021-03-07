@@ -136,15 +136,13 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 256
-  cherryCount: {fileID: 0}
   diamondCount: {fileID: 0}
   usualCollider: {fileID: 2473215734437959969}
   crouchCollider: {fileID: 7042480165279338099}
   headPoint: {fileID: 4682090734447636479}
   footPoint: {fileID: 3620632403148271792}
   jumpSource: {fileID: 6439537235902477486}
-  finalJumpCount: 2
-  cherry: 0
+  finalJumpCount: 1
   diamond: 0
   jumpCount: 0
 --- !u!50 &3594568360035789375
@@ -158,8 +156,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.1
+  m_UseAutoMass: 1
+  m_Mass: 0.87381995
   m_LinearDrag: 0
   m_AngularDrag: 0.01
   m_GravityScale: 4
@@ -179,7 +177,7 @@ CapsuleCollider2D:
   m_Density: 1
   m_Material: {fileID: 6200000, guid: e28529b07aefef34a895ebb7490a657b, type: 2}
   m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.06251091, y: -0.37521183}
   m_Size: {x: 0.81248164, y: 1.249855}

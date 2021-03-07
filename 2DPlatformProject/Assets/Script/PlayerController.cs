@@ -11,17 +11,17 @@ public class PlayerController : MonoBehaviour
     public Text diamondCount;
     public Collider2D usualCollider, crouchCollider;
     public Transform headPoint, footPoint;
-    public AudioSource jumpSource;
     public int finalJumpCount;
 
     private Rigidbody2D body;
     private Animator animator;
-    [SerializeField]
+    private AudioSource jumpSource;
     private int diamond = 0, jumpCount;
     private bool isHurt = false, standabld = false, jumpPressed = false, isJumped = false;
     void Start(){
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        jumpSource = GetComponent<AudioSource>();
     }
     void Update() {//在Update中确保能敏感地接收到起跳/下蹲请求，再去FixedUpDate中进行Rigidbody相关的运算
         if (Input.GetButtonDown("Jump") && jumpCount > 0) {
@@ -123,7 +123,6 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             diamond++;
             diamondCount.text = diamond.ToString();
-            Debug.Log(diamond);
         }
         if (collision.CompareTag("DeadLine")) {//掉出地图
             SoundMananger.soundMananger.GameOver();
