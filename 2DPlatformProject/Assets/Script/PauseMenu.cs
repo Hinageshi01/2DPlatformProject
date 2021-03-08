@@ -20,6 +20,10 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) {
             RestartGame();
         }
+        if (Input.GetKeyDown(KeyCode.N)) {
+            ResumeGame();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
     public void PauseGame() {
         Time.timeScale = 0f;

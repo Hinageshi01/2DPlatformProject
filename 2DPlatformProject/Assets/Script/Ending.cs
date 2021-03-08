@@ -16,7 +16,7 @@ public class Ending : MonoBehaviour
             whiteBox.SetActive(true);
             Time.timeScale = 0.25f;
             animator.SetTrigger("Play");
-            Invoke("ResetTimeScale", 1.5f);
+            Invoke("ResetTimeScale", 2f);
             isPlayed = true;
         }
     }

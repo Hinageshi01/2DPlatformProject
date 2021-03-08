@@ -24,7 +24,4 @@ public class SoundMananger : MonoBehaviour
         audioSource.clip = enemyDestoryAudio;
         audioSource.Play();
     }
-    public void GameOver() {
-        GetComponent<AudioSource>().enabled = false;
-    }
 }

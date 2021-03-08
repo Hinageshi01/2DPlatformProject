@@ -125,7 +125,6 @@ public class PlayerController : MonoBehaviour
             diamondCount.text = diamond.ToString();
         }
         if (collision.CompareTag("DeadLine")) {//掉出地图
-            SoundMananger.soundMananger.GameOver();
             Invoke("Restart", 0.5f);
         }
         if (collision.CompareTag("Spikes")) {//踩到刺上
