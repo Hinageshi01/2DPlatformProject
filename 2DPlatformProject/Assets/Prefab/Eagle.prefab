@@ -131,7 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topPoint: {fileID: 2357581721337777781}
   bottomPoint: {fileID: 2357581722589420105}
-  player: {fileID: 3594568360035789373, guid: 42bc67ecc2c97be4393e0383aca031fb, type: 3}
   speed: 5
   isUp: 0
 --- !u!50 &2357581721988241247
@@ -142,7 +141,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2357581721988241251}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

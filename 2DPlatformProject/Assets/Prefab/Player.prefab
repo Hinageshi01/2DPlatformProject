@@ -141,10 +141,7 @@ MonoBehaviour:
   crouchCollider: {fileID: 7042480165279338099}
   headPoint: {fileID: 4682090734447636479}
   footPoint: {fileID: 3620632403148271792}
-  jumpSource: {fileID: 6439537235902477486}
   finalJumpCount: 1
-  diamond: 0
-  jumpCount: 0
 --- !u!50 &3594568360035789375
 Rigidbody2D:
   serializedVersion: 4
@@ -162,9 +159,9 @@ Rigidbody2D:
   m_AngularDrag: 0.01
   m_GravityScale: 4
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &2473215734437959969
 CapsuleCollider2D:

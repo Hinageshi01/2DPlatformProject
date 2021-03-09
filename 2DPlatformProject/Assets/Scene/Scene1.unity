@@ -533,8 +533,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1697810038953591345, guid: 87db9c9927606d641a0dcc45d9d70754,
         type: 3}
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697810038953591345, guid: 87db9c9927606d641a0dcc45d9d70754,
+        type: 3}
       propertyPath: m_UseAutoMass
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697810038953591345, guid: 87db9c9927606d641a0dcc45d9d70754,
+        type: 3}
+      propertyPath: m_SleepingMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1697810039845732063, guid: 87db9c9927606d641a0dcc45d9d70754,
         type: 3}
@@ -6973,8 +6983,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1697810038953591345, guid: 87db9c9927606d641a0dcc45d9d70754,
         type: 3}
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697810038953591345, guid: 87db9c9927606d641a0dcc45d9d70754,
+        type: 3}
       propertyPath: m_UseAutoMass
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697810038953591345, guid: 87db9c9927606d641a0dcc45d9d70754,
+        type: 3}
+      propertyPath: m_SleepingMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1697810039845732063, guid: 87db9c9927606d641a0dcc45d9d70754,
         type: 3}
@@ -9558,6 +9578,21 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2357581721988241247, guid: 40389df4dbe68ff48af411d44d8d688b,
+        type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2357581721988241247, guid: 40389df4dbe68ff48af411d44d8d688b,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2357581721988241247, guid: 40389df4dbe68ff48af411d44d8d688b,
+        type: 3}
+      propertyPath: m_SleepingMode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2357581721988241249, guid: 40389df4dbe68ff48af411d44d8d688b,
         type: 3}

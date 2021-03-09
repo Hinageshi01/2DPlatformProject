@@ -101,6 +101,7 @@ MonoBehaviour:
   topPoint: {fileID: 6249177443884270860}
   bottomPoint: {fileID: 6249177443970918354}
   speed: 2
+  isUp: 0
 --- !u!50 &6249177443699717942
 Rigidbody2D:
   serializedVersion: 4
@@ -121,7 +122,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!61 &6249177443699717941
 BoxCollider2D:
   m_ObjectHideFlags: 0
