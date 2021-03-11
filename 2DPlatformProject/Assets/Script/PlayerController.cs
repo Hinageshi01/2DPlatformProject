@@ -16,16 +16,26 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D body;
     private Animator animator;
     private AudioSource jumpSource;
-    private int diamond = 0, jumpCount;
+    private float time = -1f;
+    private int diamond = 0, jumpCount = 0;
     private bool isHurt = false, standabld = false, jumpPressed = false, isJumped = false;
     void Start(){
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         jumpSource = GetComponent<AudioSource>();
     }
-    void Update() {//在Update中确保能敏感地接收到起跳/下蹲请求，再去FixedUpDate中进行Rigidbody相关的运算
+    void Update() {
+        //在Update中确保能敏感地接收到起跳/下蹲请求，再去FixedUpDate中进行Rigidbody相关的运算
         if (Input.GetButtonDown("Jump") && jumpCount > 0) {
             jumpPressed = true;
+            time = Time.time + 0.05f;
+        }
+        if (time >= 0 && time < Time.time) {
+            jumpPressed = false;
+            time = -1f;
+            /* 经过一个短暂的计时后重置jumpPressed，
+             * 实际上，经过0.05s后jumpPressed仍未在Movement()中重置只有一种情况，即未经跳跃离开平台且在下落途中按下空格，
+             * 此时若不重置jumpPressed，Player触地后会立刻执行一次跳跃，这是不希望看到的效果 */
         }
         Crouch();
     }
@@ -49,8 +59,14 @@ public class PlayerController : MonoBehaviour
         if (forward != 0) {//转身
             transform.localScale = new Vector3(forward, 1, 1);
         }
+        if (Physics2D.OverlapCircle(footPoint.position, 0.2f, ground) && (animator.GetBool("Idling") || animator.GetFloat("Running") >= 0.1f)) {
+            //代表脚底触地，身体触地可以写成collider.IsTouchingLayers(ground)
+            //落地时重置跳跃相关的参数，而且要避免刚起跳时OverlapCircle检测到地面
+            jumpCount = finalJumpCount;
+            isJumped = false;
+        }
         if (jumpPressed) {//跳跃
-            if (Physics2D.OverlapCircle(footPoint.position, 0.3f, ground)) {//地面起跳
+            if (Physics2D.OverlapCircle(footPoint.position, 0.2f, ground)) {//地面起跳
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
                 jumpSource.Play();
                 jumpCount--;
@@ -76,7 +92,7 @@ public class PlayerController : MonoBehaviour
                 crouchCollider.enabled = true;
                 animator.SetBool("Crouching", true);
             }
-            if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.3f, ground)) {//趴下->站立
+            if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.2f, ground)) {//趴下->站立
                 standabld = false;
                 usualCollider.enabled = true;
                 crouchCollider.enabled = false;
@@ -93,11 +109,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", true);
         }
-        if (Physics2D.OverlapCircle(footPoint.position,0.2f,ground)) {//脚底触地，身体触地可以写成collider.IsTouchingLayers(ground)
-            if (body.velocity.y <= 0) {//重置跳跃相关参数
-                jumpCount = finalJumpCount;
-                isJumped = false;
-            }
+        
+        if (Physics2D.OverlapCircle(footPoint.position,0.2f, ground)) {
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
             animator.SetBool("Idling", true);
@@ -142,7 +155,8 @@ public class PlayerController : MonoBehaviour
                 SoundMananger.soundMananger.EnemyDestoryAudio();
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
                 jumpCount = finalJumpCount;
-                isJumped = true;//无论怎样离开地面，消灭敌人后解锁跳跃条件
+                isJumped = true;
+                //无论怎样离开地面，消灭敌人后解锁跳跃条件
             }
             else {//受伤
                 SoundMananger.soundMananger.HurtAudio();
