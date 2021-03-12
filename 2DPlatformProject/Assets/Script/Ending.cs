@@ -8,15 +8,17 @@ public class Ending : MonoBehaviour
 
     private Animator animator;
     private bool isPlayed = false;
+    private int playID;
     private void Start() {
         animator = whiteBox.GetComponent<Animator>();
+        playID = Animator.StringToHash("Play");
     }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Player") && !isPlayed) {
             whiteBox.SetActive(true);
             Time.timeScale = 0.25f;
-            animator.SetTrigger("Play");
-            Invoke("ResetTimeScale", 2f);
+            animator.SetTrigger(playID);
+            Invoke("ResetTimeScale", 2f);//动画演出结束后暂停游戏
             isPlayed = true;
         }
     }

@@ -10,7 +10,13 @@ public class SoundMananger : MonoBehaviour
     [SerializeField]
     private AudioClip hurtAudio, collectAudio, enemyDestoryAudio;
     private void Awake() {
-        soundMananger = this;
+        if (soundMananger == null) {
+            soundMananger = this;
+        }
+        else if (soundMananger != this) {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
     public void HurtAudio() {
         audioSource.clip = hurtAudio;

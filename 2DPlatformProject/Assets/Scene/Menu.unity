@@ -327,7 +327,7 @@ PrefabInstance:
     - target: {fileID: 4763219630542840678, guid: f6754acbe549d6346b34d0fe44588f6b,
         type: 3}
       propertyPath: m_Name
-      value: BGM
+      value: BGMManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6754acbe549d6346b34d0fe44588f6b, type: 3}

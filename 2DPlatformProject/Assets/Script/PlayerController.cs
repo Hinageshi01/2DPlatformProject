@@ -17,12 +17,19 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private AudioSource jumpSource;
     private float time = -1f;
-    private int diamond = 0, jumpCount = 0;
+    private int diamond = 0, jumpCount, idlingID, runningID, jumpingID, fallingID, crouchingID, hurtID;
     private bool isHurt = false, standabld = false, jumpPressed = false, isJumped = false;
     void Start(){
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         jumpSource = GetComponent<AudioSource>();
+
+        idlingID = Animator.StringToHash("Idling");
+        runningID = Animator.StringToHash("Running");
+        jumpingID = Animator.StringToHash("Jumping");
+        fallingID = Animator.StringToHash("Falling");
+        crouchingID = Animator.StringToHash("Crouching");
+        hurtID = Animator.StringToHash("Hurt");
     }
     void Update() {
         //在Update中确保能敏感地接收到起跳/下蹲请求，再去FixedUpDate中进行Rigidbody相关的运算
@@ -49,8 +56,8 @@ public class PlayerController : MonoBehaviour
         float horizontalMove = Input.GetAxis("Horizontal");//-1f -> 1f
         float forward = Input.GetAxisRaw("Horizontal");//-1, 0, 1
 
-        animator.SetFloat("Running", Mathf.Abs(horizontalMove));//跑步动画参数
-        if (animator.GetBool("Crouching")) {//蹲下移动
+        animator.SetFloat(runningID, Mathf.Abs(horizontalMove));//跑步动画参数
+        if (animator.GetBool(crouchingID)) {//蹲下移动
             body.velocity = new Vector2(horizontalMove * speed * Time.fixedDeltaTime * 0.25f, body.velocity.y);
         }
         else {//移动
@@ -90,35 +97,35 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Crouch")) {
                 usualCollider.enabled = false;
                 crouchCollider.enabled = true;
-                animator.SetBool("Crouching", true);
+                animator.SetBool(crouchingID, true);
             }
             if (standabld && !Physics2D.OverlapCircle(headPoint.position, 0.2f, ground)) {//趴下->站立
                 standabld = false;
                 usualCollider.enabled = true;
                 crouchCollider.enabled = false;
-                animator.SetBool("Crouching", false);
+                animator.SetBool(crouchingID, false);
             }
         }
     }
     void AnimationSwitch() {
         if (body.velocity.y > 0) {//上升
-            animator.SetBool("Jumping", true);
-            animator.SetBool("Falling", false);
+            animator.SetBool(jumpingID, true);
+            animator.SetBool(fallingID, false);
         }
         if (body.velocity.y < 0) {//下降
-            animator.SetBool("Jumping", false);
-            animator.SetBool("Falling", true);
+            animator.SetBool(jumpingID, false);
+            animator.SetBool(fallingID, true);
         }
         
         if (Physics2D.OverlapCircle(footPoint.position,0.1f, ground)) {
-            animator.SetBool("Jumping", false);
-            animator.SetBool("Falling", false);
-            animator.SetBool("Idling", true);
+            animator.SetBool(jumpingID, false);
+            animator.SetBool(fallingID, false);
+            animator.SetBool(idlingID, true);
         }
         if (isHurt) {//受伤
-            animator.SetBool("Hurt", true);
+            animator.SetBool(hurtID, true);
             if (body.velocity.y <= 0) {
-                animator.SetBool("Hurt", false);
+                animator.SetBool(hurtID, false);
                 isHurt = false;
             }
         }
@@ -150,7 +157,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Enemy")) {//触敌
-            if (animator.GetBool("Falling") && transform.position.y - collision.transform.position.y > 0.35f) {//下落触敌
+            if (animator.GetBool(fallingID) && transform.position.y - collision.transform.position.y > 0.35f) {//下落触敌
                 Enemy enemy = collision.gameObject.GetComponent<Enemy>();
                 enemy.Death();
                 SoundMananger.soundMananger.EnemyDestoryAudio();

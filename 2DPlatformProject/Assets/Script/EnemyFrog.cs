@@ -13,6 +13,7 @@ public class EnemyFrog : Enemy
     private Rigidbody2D body;
     private Collider2D collisionBox;
     private float leftX, rightX;
+    private int jumpingID, fallingID;
     protected override void Start() {
         base.Start();
         body = GetComponent<Rigidbody2D>();
@@ -21,17 +22,20 @@ public class EnemyFrog : Enemy
         rightX = rightPoint.position.x;
         Destroy(leftPoint.gameObject);
         Destroy(rightPoint.gameObject);
+
+        jumpingID = Animator.StringToHash("Jumping");
+        fallingID = Animator.StringToHash("Falling");
     }
     void Update() {
         AnimationSwitch();
     }
     void AnimationSwitch() {
-        if (animator.GetBool("Jumping") && body.velocity.y <= 0) {
-            animator.SetBool("Jumping", false);
-            animator.SetBool("Falling", true);
+        if (animator.GetBool(jumpingID) && body.velocity.y <= 0) {
+            animator.SetBool(jumpingID, false);
+            animator.SetBool(fallingID, true);
         }
-        if (animator.GetBool("Falling") && collisionBox.IsTouchingLayers(ground)) {
-            animator.SetBool("Falling", false);
+        if (animator.GetBool(fallingID) && collisionBox.IsTouchingLayers(ground)) {
+            animator.SetBool(fallingID, false);
             body.velocity = new Vector2(0, 0);
         }
     }
@@ -42,7 +46,7 @@ public class EnemyFrog : Enemy
                 transform.localScale = new Vector3(-1, 1, 1);
             }
             body.velocity = new Vector2(-transform.localScale.x * speed, jumpForce);
-            animator.SetBool("Jumping", true);
+            animator.SetBool(jumpingID, true);
         }
         else {//朝右
             if (transform.position.x >= rightX) {//转身
@@ -50,7 +54,7 @@ public class EnemyFrog : Enemy
                 transform.localScale = new Vector3(1, 1, 1);
             }
             body.velocity = new Vector2(-transform.localScale.x * speed, jumpForce);
-            animator.SetBool("Jumping", true);
+            animator.SetBool(jumpingID, true);
         }
     }
 }
