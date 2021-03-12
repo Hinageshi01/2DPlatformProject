@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour
         if (time >= 0 && time < Time.time) {
             jumpPressed = false;
             time = -1f;
-            /* 经过一个短暂的计时后重置jumpPressed，
-             * 实际上，经过0.05s后jumpPressed仍未在Movement()中重置只有一种情况，即未经跳跃离开平台且在下落途中按下空格，
-             * 此时若不重置jumpPressed，Player触地后会立刻执行一次跳跃，这是不希望看到的效果 */
+            //经过一个短暂的计时后重置jumpPressed，
+            //实际上，经过0.05s后jumpPressed仍未在Movement()中重置只有一种情况，即未经跳跃离开平台且在下落途中按下空格，
+            //此时若不重置jumpPressed，Player触地后会立刻执行一次跳跃，这是不希望看到的效果
         }
         Crouch();
     }
@@ -59,14 +59,14 @@ public class PlayerController : MonoBehaviour
         if (forward != 0) {//转身
             transform.localScale = new Vector3(forward, 1, 1);
         }
-        if (Physics2D.OverlapCircle(footPoint.position, 0.2f, ground) && (animator.GetBool("Idling") || animator.GetFloat("Running") >= 0.1f)) {
+        if (Physics2D.OverlapCircle(footPoint.position, 0.1f, ground) && (animator.GetBool("Idling") || animator.GetFloat("Running") >= 0.1f)) {
             //代表脚底触地，身体触地可以写成collider.IsTouchingLayers(ground)
             //落地时重置跳跃相关的参数，而且要避免刚起跳时OverlapCircle检测到地面
             jumpCount = finalJumpCount;
             isJumped = false;
         }
         if (jumpPressed) {//跳跃
-            if (Physics2D.OverlapCircle(footPoint.position, 0.2f, ground)) {//地面起跳
+            if (Physics2D.OverlapCircle(footPoint.position, 0.3f, ground)) {//地面起跳
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
                 jumpSource.Play();
                 jumpCount--;
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Falling", true);
         }
         
-        if (Physics2D.OverlapCircle(footPoint.position,0.2f, ground)) {
+        if (Physics2D.OverlapCircle(footPoint.position,0.1f, ground)) {
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", false);
             animator.SetBool("Idling", true);
@@ -129,7 +129,8 @@ public class PlayerController : MonoBehaviour
             SoundMananger.soundMananger.CollectAudio();
             Destroy(collision.gameObject);
             jumpCount++;
-            isJumped = true;//无论怎样离开地面，吃到樱桃后解锁跳跃条件
+            isJumped = true;
+            //无论怎样离开地面，吃到樱桃后解锁跳跃条件
         }
         if (collision.CompareTag("Diamond")) {
             SoundMananger.soundMananger.CollectAudio();
@@ -141,7 +142,7 @@ public class PlayerController : MonoBehaviour
             Invoke("Restart", 0.5f);
         }
         if (collision.CompareTag("Spikes")) {//踩到刺上
-            Invoke("Restart", 0.23f);
+            Invoke("Restart", 0.2f);
             SoundMananger.soundMananger.HurtAudio();
             isHurt = true;
             body.velocity = new Vector2(0, jumpForce * 0.7f);
