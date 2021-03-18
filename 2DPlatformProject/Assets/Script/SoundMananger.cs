@@ -5,15 +5,15 @@ using UnityEngine;
 public class SoundMananger : MonoBehaviour
 {
     public AudioSource audioSource;
-    public static SoundMananger soundMananger;
+    public static SoundMananger instance;
 
     [SerializeField]
     private AudioClip hurtAudio, collectAudio, enemyDestoryAudio;
     private void Awake() {
-        if (soundMananger == null) {
-            soundMananger = this;
+        if (instance == null) {
+            instance = this;
         }
-        else if (soundMananger != this) {
+        else if (instance != this) {
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);

@@ -133,14 +133,14 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         //收集
         if (collision.CompareTag("Cherry")) {
-            SoundMananger.soundMananger.CollectAudio();
+            SoundMananger.instance.CollectAudio();
             Destroy(collision.gameObject);
             jumpCount++;
             isJumped = true;
             //无论怎样离开地面，吃到樱桃后解锁跳跃条件
         }
         if (collision.CompareTag("Diamond")) {
-            SoundMananger.soundMananger.CollectAudio();
+            SoundMananger.instance.CollectAudio();
             Destroy(collision.gameObject);
             diamond++;
             diamondCount.text = diamond.ToString();
@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.CompareTag("Spikes")) {//踩到刺上
             Invoke("Restart", 0.2f);
-            SoundMananger.soundMananger.HurtAudio();
+            SoundMananger.instance.HurtAudio();
             isHurt = true;
             body.velocity = new Vector2(0, jumpForce * 0.7f);
         }
@@ -160,14 +160,14 @@ public class PlayerController : MonoBehaviour
             if (animator.GetBool(fallingID) && transform.position.y - collision.transform.position.y > 0.35f) {//下落触敌
                 Enemy enemy = collision.gameObject.GetComponent<Enemy>();
                 enemy.Death();
-                SoundMananger.soundMananger.EnemyDestoryAudio();
+                SoundMananger.instance.EnemyDestoryAudio();
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
                 jumpCount = finalJumpCount;
                 isJumped = true;
                 //无论怎样离开地面，消灭敌人后解锁跳跃条件
             }
             else {//受伤
-                SoundMananger.soundMananger.HurtAudio();
+                SoundMananger.instance.HurtAudio();
                 isHurt = true;//用于切换动画以及屏蔽受伤状态下移动相关的输入
                 if (transform.position.x <= collision.transform.position.x) {//右侧触敌
                     body.velocity = new Vector2(-10f, body.velocity.y + jumpForce * 0.7f);

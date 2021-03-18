@@ -5,19 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class BGMManager : MonoBehaviour
 {
-    static BGMManager staticBGM;
+    static BGMManager instance;
     static int sceneIndex = -1;
     public  AudioClip openingBGM, scene1BGM, scene2BGM, scene3BGM, endingBGM, defautBGM;
     private  AudioSource audioSource;
     private void Awake () {
         audioSource = GetComponent<AudioSource>();
-        if (staticBGM == null) {
-            staticBGM = this;
+        if (instance == null) {
+            instance = this;
         }
-        else if (staticBGM != this) {
+        else if (instance != this) {
             Destroy(gameObject);
             if (sceneIndex != SceneManager.GetActiveScene().buildIndex) {
-                staticBGM.SwitchBGM();
+                instance.SwitchBGM();
             }
             sceneIndex = SceneManager.GetActiveScene().buildIndex;
         }
