@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         if (forward != 0) {//转身
             transform.localScale = new Vector3(forward, 1, 1);
         }
-        if (Physics2D.OverlapCircle(footPoint.position, 0.1f, ground) && (animator.GetBool("Idling") || animator.GetFloat("Running") >= 0.1f)) {
+        if (Physics2D.OverlapCircle(footPoint.position, 0.1f, ground) && ((animator.GetBool("Idling") || animator.GetFloat("Running") >= 0.1f))) {
             //代表脚底触地，身体触地可以写成collider.IsTouchingLayers(ground)
             //落地时重置跳跃相关的参数，而且要避免刚起跳时OverlapCircle检测到地面
             jumpCount = finalJumpCount;
