@@ -39,7 +39,7 @@ public class EnemyFrog : Enemy
             body.velocity = new Vector2(0, 0);
         }
     }
-    void movement() {//在Idel动画事件的结尾调用
+    void movement() {//在Idel动画的结尾调用
         if (forwardLeft) {//朝左
             if (transform.position.x <= leftX) {//转身
                 forwardLeft = false;

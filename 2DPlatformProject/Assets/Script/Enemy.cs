@@ -5,20 +5,20 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     protected Animator animator;
-    protected Rigidbody2D rigidbody2;
+    protected Rigidbody2D rb;
 
     private int deathID;
     protected virtual void Start() {
         animator = GetComponent<Animator>();
-        rigidbody2 = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         deathID = Animator.StringToHash("Death");
     }
     public void Death() {
         GetComponent<Collider2D>().enabled = false;
-        rigidbody2.constraints = RigidbodyConstraints2D.FreezeAll;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
         animator.SetTrigger(deathID);
     }
-    public void Disappear() {
+    public void Disappear() {//在Death动画的结尾调用
         Destroy(gameObject);
     }
 }

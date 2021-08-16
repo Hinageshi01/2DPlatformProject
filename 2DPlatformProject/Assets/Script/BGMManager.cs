@@ -5,26 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class BGMManager : MonoBehaviour
 {
-    static BGMManager instance;
-    static int sceneIndex = -1;
-    public  AudioClip openingBGM, scene1BGM, scene2BGM, scene3BGM, endingBGM, defautBGM;
+    public static BGMManager instance;
+    public static int sceneIndex;
+
+    [SerializeField]
+    private AudioClip openingBGM, scene1BGM, scene2BGM, scene3BGM, endingBGM, defautBGM;
     private  AudioSource audioSource;
     private void Awake () {
         audioSource = GetComponent<AudioSource>();
+        int crtIndex = SceneManager.GetActiveScene().buildIndex;
         if (instance == null) {
+            //只有首个Manager加载时会进入这个分支
             instance = this;
+            sceneIndex = crtIndex;
         }
         else if (instance != this) {
             Destroy(gameObject);
-            if (sceneIndex != SceneManager.GetActiveScene().buildIndex) {
-                instance.SwitchBGM();
+            if (sceneIndex != crtIndex) {
+                //根据关卡编号切换bgm，重新加载同一关时则不需要切换
+                instance.SwitchBGM(crtIndex);
+                sceneIndex = crtIndex;
             }
-            sceneIndex = SceneManager.GetActiveScene().buildIndex;
         }
         DontDestroyOnLoad(gameObject);
     }
-    public void SwitchBGM() {
-        switch (SceneManager.GetActiveScene().buildIndex) {
+    public void SwitchBGM(int i) {
+        switch (i) {
             case 0:
                 audioSource.clip = openingBGM;
                 audioSource.Play();
