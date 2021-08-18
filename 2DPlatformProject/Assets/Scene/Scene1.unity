@@ -641,7 +641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 1608454621}
-  moveRate: 0.05
+  moveRate: 0.06
   lockY: 1
 --- !u!1 &124510209
 GameObject:

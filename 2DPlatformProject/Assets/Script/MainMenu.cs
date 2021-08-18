@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
             obj.SetActive(true);
         }
     }
+    //以下两个方法在buttonUI按下时被调用
     public void StartGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
     }

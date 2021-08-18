@@ -8,17 +8,18 @@ public class Parallax : MonoBehaviour
     public float moveRate;
     public bool lockY;
 
-    private float startX, startY;
+    private float bgStartX, bgStartY;
     void Start(){
-        startX = transform.position.x;
-        startY = transform.position.y;
+        bgStartX = transform.position.x;
+        bgStartY = transform.position.y;
     }
     void Update(){
         if (lockY) {
-            transform.position = new Vector2(startX + camera.position.x * moveRate, transform.position.y);
+            transform.position = new Vector2(bgStartX + camera.position.x * moveRate, transform.position.y);
         }
         else {
-            transform.position = new Vector2(startX + camera.position.x * moveRate, startY + camera.position.y * moveRate);
+            transform.position = new Vector2(bgStartX + camera.position.x, bgStartY + camera.position.y) * moveRate;
         }
     }
 }
+ 
